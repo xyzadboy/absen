@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Anggota;
 use App\Models\Absensi;
+use Carbon\Carbon;
 
 class AbsenController extends Controller
 {
@@ -25,6 +26,15 @@ class AbsenController extends Controller
         // Cari anggota berdasarkan NIM di database
         $anggota = Anggota::where('nim', $nim)->first();
         if ($anggota) {
+            // Cek apakah sudah absen dalam 5 menit terakhir
+            $lastAbsensi = Absensi::where('anggota_id', $anggota->id)
+                                  ->where('created_at', '>=', Carbon::now()->subMinutes(5))
+                                  ->first();
+
+            if ($lastAbsensi) {
+                return redirect()->back()->with('warning', 'Anda sudah absen dalam 5 menit terakhir');
+            }
+
             // Simpan absensi dengan status "Hadir"
             Absensi::create([
                 'anggota_id' => $anggota->id,
