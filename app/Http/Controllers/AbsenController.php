@@ -19,11 +19,11 @@ class AbsenController extends Controller
     {
         $decodedText = $request->input('qrcode');
 
-        // Ekstrak user_id dari hasil QR code
-        $userId = $this->extractUserIdFromQrCode($decodedText);
+        // Ekstrak NIM dari hasil QR code
+        $nim = $this->extractNimFromQrCode($decodedText);
 
-        // Cari user di database
-        $anggota = Anggota::find($userId);
+        // Cari anggota berdasarkan NIM di database
+        $anggota = Anggota::where('nim', $nim)->first();
         if ($anggota) {
             // Simpan absensi dengan status "Hadir"
             Absensi::create([
@@ -35,9 +35,9 @@ class AbsenController extends Controller
         return redirect()->back()->with('error', 'QR code tidak valid');
     }
 
-    private function extractUserIdFromQrCode($qrText)
+    private function extractNimFromQrCode($qrText)
     {
-        // Proses untuk mengekstrak user_id dari QR code, misalnya: 'user_id:1'
-        return str_replace('user_id:', '', $qrText);
+        // Proses untuk mengekstrak NIM dari QR code, misalnya: 'nim:1234567890'
+        return str_replace('nim:', '', $qrText);
     }
 }
