@@ -14,7 +14,13 @@ class AbsensiResource extends Resource
 {
     protected static ?string $model = Absensi::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard';
+
+    public static function getPluralLabel(): string
+    {
+        return 'Absensi'; // Ubah label jamak di sini
+    }
+
 
     public static function form(Form $form): Form
     {
@@ -29,8 +35,7 @@ class AbsensiResource extends Resource
                     ->label('Anggota (NIM - Nama)'),
                 Forms\Components\Select::make('status')
                     ->options([
-                        'Hadir' => 'Hadir',
-                    ])
+                        'Hadir' => 'Hadir',])
                     ->default('Hadir')
                     ->required()
                     ->disabled(),

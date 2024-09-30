@@ -17,7 +17,16 @@ class AnggotaResource extends Resource
 {
     protected static ?string $model = Anggota::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
+
+    public static function getPluralLabel(): string
+{
+    return 'Daftar Peserta'; // Ubah label jamak di sini
+}
+
+
+
+
 
     public static function form(Form $form): Form
     {

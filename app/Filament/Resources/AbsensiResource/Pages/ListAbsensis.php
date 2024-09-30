@@ -10,6 +10,13 @@ class ListAbsensis extends ListRecords
 {
     protected static string $resource = AbsensiResource::class;
 
+    public function getTitle(): string
+{
+    return 'Daftar Absensi';
+}
+
+
+
     protected function getHeaderActions(): array
     {
         return [

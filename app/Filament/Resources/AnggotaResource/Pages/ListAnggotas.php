@@ -10,6 +10,11 @@ class ListAnggotas extends ListRecords
 {
     protected static string $resource = AnggotaResource::class;
 
+    public function getTitle(): string
+    {
+        return 'Daftar Peserta';
+    }
+
     protected function getHeaderActions(): array
     {
         return [
